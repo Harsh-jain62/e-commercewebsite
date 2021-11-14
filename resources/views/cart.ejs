@@ -1,0 +1,72 @@
+<style>
+  .product{
+        max-width: 100%;
+         max-height:100%;
+         background: #fff;
+         padding: 30px;
+         border-radius: 5px;
+         box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+  }
+  .container{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 80px;
+  grid-row-gap:50px ;
+  }
+  .detail{
+    text-align:center ;
+  } 
+  input[type=text] {
+    width: 250px;
+    padding: 9px 18px;
+    margin: 5px 0;
+    box-sizing: border-box;
+  }
+  input[type=submit] {
+    width: 250px;
+    padding: 9px 18px;
+    margin: 5px 0;
+    box-sizing: border-box;
+  }
+  
+.total{
+text-align:right;
+}  
+  
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<header>
+    <%- include('./partials/header.ejs') -%> 
+    </header>
+    
+  <section>
+    <div class="product">
+      <div class="container"> 
+  
+  <% for(let product of Object.values(session.cart.items)){ %>  
+    <img src="/img/<%= product.item.image %>" alt ="" height="150px" width="200px">
+    <h1><%= product.item.name %></h1>
+    <p class="price">₹ <%= product.item.price %></p>
+    <% } %>
+    </div>
+  </section><br>
+  <section>
+    <div class="detail"> 
+    <p>Total Amout: ₹<%= session.cart.totalPrice %></p>
+     <br>
+     <% if(user) {%>
+    <form action="/order" method="POST">  
+    <input type="text"name="phone" placeholder="please enter your phone number"><br>                     
+    <input type="text" name="address" placeholder="please enter your Address"><br>
+    <input type="submit" value="OrderNow">
+    <%} else{ %>
+      <a href="/login" >Please login</a>
+    </form>
+  </div>
+
+      <% } %>
+  </div>
+</div>
+</section>
+    
